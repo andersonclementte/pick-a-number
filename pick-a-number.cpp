@@ -1,4 +1,6 @@
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
 using namespace std;
 
 int main(){
@@ -6,16 +8,29 @@ int main(){
     cout << "Hello world!" << endl;
     cout << "************" << endl;
 
-    const int SECRET_NUMBER = 42;
+    cout << "Escolha o nivel de dificuldade: " << endl;
+    cout << "Fácil (F)\nMédio (M)\nDifícil (D)" << endl;
     
-    int tries = 0;
+    char level;
+    cin >> level;
+
+    int tries;
+
+    if (level == 'F') tries = 15;
+    else if (level == 'M') tries = 10;
+    else tries = 5;
+
+    srand(time(NULL));
+    const int SECRET_NUMBER = rand() % 100;
+    
+    int tried = 0;
     bool not_hit = true;
     double score = 1000.0;
 
-    while(not_hit){
-        tries++;
+    while(not_hit && tried < tries){
+        tried++;
         int guess;
-        cout << "Tentativa " << tries << endl;
+        cout << "Tentativa " << tried << endl;
         cout << "Escolhe um numero, digita ae: " << endl;
         cin >> guess;
         cout << "O valor do chute é: " << guess << endl;
@@ -26,18 +41,18 @@ int main(){
         score = score - looses;
 
         if (hit){
-            cout << "Acerto mizeravi!" << endl;
+            cout << "\nAcerto mizeravi!" << endl;
             not_hit = false;
         }
         else if (greater){
-            cout << "Chuve foi maior que o número" << endl;
+            cout << "\nChute foi maior que o número" << endl;
         }
         else {
-            cout << "Chute menor do que o número" << endl;
+            cout << "\nChute menor do que o número" << endl;
         }
     }
 
-    cout << "Fim de jogo!\nVocê acertou em " << tries << " tentativas." << endl;
+    cout << "Fim de jogo!" << endl;
     cout << "Sua pontuação foi " << score << endl;
     
 }
